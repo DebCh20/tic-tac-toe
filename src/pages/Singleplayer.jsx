@@ -1,0 +1,95 @@
+import React, { useEffect, useRef } from 'react'
+import { motion } from "motion/react"
+import { useState } from 'react'
+import createTicTacToeAI from './PlaywithAI';
+
+function Singleplayer() {
+
+  let [gameState, setGameState] = useState([]);
+  let [showMark, setShowMark] = useState(1);
+  let [player1, setPlayer1] = useState(0);
+  let [player2, setPlayer2] = useState(0);
+
+  let ref = useRef();
+  
+  useEffect(()=>checkResult,[gameState, showMark]);
+
+  function setTheMark(id) {
+    id = parseInt(id);
+
+    setShowMark((prev) => prev * -1);
+    console.log('showmark ', showMark);
+    if (gameState[id] != 'O' && gameState[id] != 'X') {
+      setGameState((prevState) => ({
+        ...prevState,
+        [id]: showMark > 0 ? 'O' : 'X'
+      }));
+    }
+    console.log('gamestate ', gameState[id]);
+  }
+
+  function checkResult() {
+
+    let winMatrix = [[0, 1, 2], [0, 3, 6], [0, 4, 8],
+    [1, 4, 7], [2, 5, 8], [3, 4, 5],
+    [6, 7, 8], [2, 4, 6]];
+
+    for (let i= 0; i < 8; i++) {
+      console.log('display matrix',gameState[winMatrix[i][0]], gameState[winMatrix[i][1]], gameState[winMatrix[i][2]]); 
+      if(gameState[winMatrix[i][0]] != undefined && gameState[winMatrix[i][1]] != undefined
+        && gameState[winMatrix[i][2]]!= undefined
+      )     
+      if (gameState[winMatrix[i][0]] == gameState[winMatrix[i][1]] && gameState[winMatrix[i][1]]==gameState[winMatrix[i][2]]) {
+        console.log('true');        
+        gameState[winMatrix[i][0]] == 'O' ? setPlayer1(prev => prev + 1)
+          : setPlayer2(prev => prev + 1);
+        setGameState([]);
+      }
+    }
+  }
+
+  return (
+    <div className='flex flex-col items-center gap-2'>
+      <h4 className='handjet-sps text-4xl text-center'>You know how to play, don't you ??</h4>
+      <h2 className='handjet-sps text-4xl text-center'>Scores:</h2>
+      <h2 className='black-ops-one-regular text-3xl p-2 text-center'>Player1:- {player1} Player2:- {player2}</h2>
+      <div className='h-[50vh] mt-3 mb-3 w-[40vw] flex flex-wrap'>
+        <div className='h-1/3 w-1/3 border-r-2 border-b-2 border-blue-400'><motion.div id='0' ref={ref}
+          onClick={(e) => {
+            setTheMark(e.target.id)
+          }}
+          whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[0]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-r-2 border-l-2 border-blue-400'><motion.div id='1' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[1]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-l-2 border-b-2 border-blue-400'><motion.div id='2' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[2]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-t-2 border-b-2 border-r-2 border-blue-400'><motion.div id='3' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[3]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-2 border-blue-400'><motion.div id='4' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[4]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-t-2 border-b-2 border-l-2 border-blue-400'><motion.div id='5' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[5]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-r-2 border-t-2 border-blue-400'><motion.div id='6' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[6]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-r-2 border-l-2 border-blue-400'><motion.div id='7' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[7]}</motion.div></div>
+
+        <div className='h-1/3 w-1/3 border-t-2 border-l-2 border-blue-400'><motion.div id='8' ref={ref} onClick={(e) => setTheMark(e.target.id)} whileTap={{ scale: 0.8, rotate: 2 }}
+          className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[8]}</motion.div></div>
+      </div>
+      <motion.button whileTap={{ scale: 0.8, rotate: 2 }}
+        onClick={() =>{setGameState([]); setShowMark(1)}}
+        className='permanent-marker-regular text-blue-500 w-1/5 border-4 border-zinc-600 rounded-lg mt-4 mb-3 p-3'>Let's play again</motion.button>
+    </div>
+  )
+}
+
+export default Singleplayer
