@@ -12,7 +12,7 @@ function Singleplayer() {
 
   let ref = useRef();
   
-  useEffect(()=>checkResult,[gameState, showMark]);
+  useEffect(()=>checkResult(),[gameState, showMark]);
 
   function setTheMark(id) {
     id = parseInt(id);
