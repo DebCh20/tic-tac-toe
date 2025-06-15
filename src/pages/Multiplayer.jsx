@@ -15,13 +15,17 @@ function Multiplayer() {
     useEffect(()=>{
       socket.on('move',(data)=>{
         console.log('data received at client mark',data.showMark);
-        console.log('data received at client state',data.gameState);    
+        console.log('data received at client state',data.gameState);  
+        if (JSON.stringify(gameState) !== JSON.stringify(data.gameState)) {
+            console.log('set gamestate');          
+            setGameState(data.gameState);
+        }          
       })
     })  
 
     useEffect(()=>{
       socket.emit('move', {'gameState': gameState, 'showMark':showMark})
-    },[gameState, showMark])  
+    },[showMark])  
 
      function setTheMark(id)
      {
