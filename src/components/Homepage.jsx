@@ -14,7 +14,7 @@ function Homepage() {
             <div className='handjet-sps flex flex-col items-center justify-center p-10 gap-4'>
                 <span>Click one of these options to begin the game</span>
                 <motion.button onClick={()=>setTimeout(()=>navigate("/single"),200)} whileTap={{ scale: 0.8, rotate: 2 }} className='border-4 border-zinc-600 rounded-lg mt-12 p-6'>I am a lone wolf</motion.button>
-                <motion.button whileTap={{ scale: 0.8, rotate: 2 }} className='border-4 border-zinc-600 rounded-lg p-6'>Lets defeat my bestie</motion.button>
+                <motion.button onClick={()=>setTimeout(()=>navigate("/multi"),200)} whileTap={{ scale: 0.8, rotate: 2 }} className='border-4 border-zinc-600 rounded-lg p-6'>Lets defeat my bestie</motion.button>
             </div>
         </>
     )

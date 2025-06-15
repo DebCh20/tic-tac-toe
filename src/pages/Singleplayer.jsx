@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { motion } from "motion/react"
 import { useState } from 'react'
-import createTicTacToeAI from './PlaywithAI';
+import Playmove from '../Apicall/Playmove';
 
 function Singleplayer() {
 
@@ -9,23 +9,48 @@ function Singleplayer() {
   let [showMark, setShowMark] = useState(1);
   let [player1, setPlayer1] = useState(0);
   let [player2, setPlayer2] = useState(0);
+  let [count, setCount] = useState(0);
+  let [aiResposnse, setAiResposnse] = useState();
 
   let ref = useRef();
-  
-  useEffect(()=>checkResult(),[gameState, showMark]);
+
+  useEffect(() => checkResult(), [gameState, showMark]);
+
+  useEffect(() => {
+    setShowMark((prev) => prev * -1);
+    console.log('count ', count);
+    if (gameState[aiResposnse] != 'O' && gameState[aiResposnse] != 'X') {
+      setGameState((prevState) => ({
+        ...prevState,
+        [aiResposnse]: showMark > 0 ? 'O' : 'X'
+      }));
+    }
+  }, [aiResposnse])
 
   function setTheMark(id) {
     id = parseInt(id);
 
+    setCount(prev => prev + 1);
+
+    setTimeout(() => {
+      setAiResposnse(Playmove(gameState, id));
+      console.log("got response ", aiResposnse);
+    }, 200);   
+
+    if (count == 9) {
+      setGameState([]);
+      setCount(0);
+    }
+
     setShowMark((prev) => prev * -1);
-    console.log('showmark ', showMark);
+    // console.log('showmark ', showMark);
     if (gameState[id] != 'O' && gameState[id] != 'X') {
       setGameState((prevState) => ({
         ...prevState,
         [id]: showMark > 0 ? 'O' : 'X'
       }));
     }
-    console.log('gamestate ', gameState[id]);
+    // console.log('gamestate ', gameState[id]);
   }
 
   function checkResult() {
@@ -34,17 +59,17 @@ function Singleplayer() {
     [1, 4, 7], [2, 5, 8], [3, 4, 5],
     [6, 7, 8], [2, 4, 6]];
 
-    for (let i= 0; i < 8; i++) {
-      console.log('display matrix',gameState[winMatrix[i][0]], gameState[winMatrix[i][1]], gameState[winMatrix[i][2]]); 
-      if(gameState[winMatrix[i][0]] != undefined && gameState[winMatrix[i][1]] != undefined
-        && gameState[winMatrix[i][2]]!= undefined
-      )     
-      if (gameState[winMatrix[i][0]] == gameState[winMatrix[i][1]] && gameState[winMatrix[i][1]]==gameState[winMatrix[i][2]]) {
-        console.log('true');        
-        gameState[winMatrix[i][0]] == 'O' ? setPlayer1(prev => prev + 1)
-          : setPlayer2(prev => prev + 1);
-        setGameState([]);
-      }
+    for (let i = 0; i < 8; i++) {
+      // console.log('display matrix', gameState[winMatrix[i][0]], gameState[winMatrix[i][1]], gameState[winMatrix[i][2]]);
+      if (gameState[winMatrix[i][0]] != undefined && gameState[winMatrix[i][1]] != undefined
+        && gameState[winMatrix[i][2]] != undefined
+      )
+        if (gameState[winMatrix[i][0]] == gameState[winMatrix[i][1]] && gameState[winMatrix[i][1]] == gameState[winMatrix[i][2]]) {
+          // console.log('true');
+          gameState[winMatrix[i][0]] == 'O' ? setPlayer1(prev => prev + 1)
+            : setPlayer2(prev => prev + 1);
+          setGameState([]);
+        }
     }
   }
 
@@ -86,7 +111,9 @@ function Singleplayer() {
           className='permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center'>{gameState[8]}</motion.div></div>
       </div>
       <motion.button whileTap={{ scale: 0.8, rotate: 2 }}
-        onClick={() =>{setGameState([]); setShowMark(1)}}
+        onClick={() => {
+          setGameState([]); setShowMark(1); console.log("game reset");
+        }}
         className='permanent-marker-regular text-blue-500 w-1/5 border-4 border-zinc-600 rounded-lg mt-4 mb-3 p-3'>Let's play again</motion.button>
     </div>
   )
