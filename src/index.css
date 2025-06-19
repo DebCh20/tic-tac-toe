@@ -18,9 +18,25 @@ background-image: url("../public/background.jpg");
   font-weight: 400;
   font-style: normal;
 }
+.gochi-hand-regular {
+  font-family: "Gochi Hand", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .black-ops-one-regular {
   font-family: "Black Ops One", system-ui;
   font-weight: 400;
+  font-style: normal;
+}
+.cabin-sketch-regular {
+  font-family: "Cabin Sketch", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cabin-sketch-bold {
+  font-family: "Cabin Sketch", sans-serif;
+  font-weight: 700;
   font-style: normal;
 }

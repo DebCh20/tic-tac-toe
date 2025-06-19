@@ -74,7 +74,7 @@ function Multiplayer() {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <h4 className="handjet-sps text-4xl text-center">
+      <h4 className="cabin-sketch-regular text-5xl text-blue-700 text-center">
         You know how to play, don't you ??
       </h4>
       <h2 className="handjet-sps text-4xl text-center">Scores:</h2>
@@ -89,7 +89,7 @@ function Multiplayer() {
               setTheMark(e.target.id);
             }}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[0]}
           </motion.div>
@@ -100,7 +100,7 @@ function Multiplayer() {
             id="1"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[1]}
           </motion.div>
@@ -111,7 +111,7 @@ function Multiplayer() {
             id="2"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[2]}
           </motion.div>
@@ -122,7 +122,7 @@ function Multiplayer() {
             id="3"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[3]}
           </motion.div>
@@ -133,7 +133,7 @@ function Multiplayer() {
             id="4"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[4]}
           </motion.div>
@@ -144,7 +144,7 @@ function Multiplayer() {
             id="5"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[5]}
           </motion.div>
@@ -155,7 +155,7 @@ function Multiplayer() {
             id="6"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[6]}
           </motion.div>
@@ -166,7 +166,7 @@ function Multiplayer() {
             id="7"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[7]}
           </motion.div>
@@ -177,7 +177,7 @@ function Multiplayer() {
             id="8"
             onClick={(e) => setTheMark(e.target.id)}
             whileTap={{ scale: 0.8, rotate: 2 }}
-            className="permanent-marker-regular h-full w-full font-bold text-8xl flex justify-center items-center"
+            className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
             {gameState[8]}
           </motion.div>
