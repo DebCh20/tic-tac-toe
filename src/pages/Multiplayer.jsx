@@ -15,7 +15,7 @@ function Multiplayer() {
     socket.on("move", (data) => {
       console.log("data received at client", data);
 
-      setTheMark(data.idSent, (fromPlayer = false));
+      setTheMark(data.idSent, false);
       setPrevMove(data.prevMove);
     });
   });
@@ -55,7 +55,7 @@ function Multiplayer() {
         setPrevMove("X");
       }
     }
-    if (!fromPlayer) {
+    if (fromPlayer) {
       console.log("data sent from client");
       socket.emit("move", { prevMoveMade: prevMove, idSent: id });
     }
@@ -108,7 +108,7 @@ function Multiplayer() {
           <motion.div
             id="0"
             onClick={(e) => {
-              setTheMark(e.target.id);
+              setTheMark(e.target.id, true, true, true);
             }}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
@@ -120,7 +120,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-r-2 border-l-2 border-blue-400">
           <motion.div
             id="1"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -131,7 +131,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-l-2 border-b-2 border-blue-400">
           <motion.div
             id="2"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -142,7 +142,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-t-2 border-b-2 border-r-2 border-blue-400">
           <motion.div
             id="3"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -153,7 +153,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-2 border-blue-400">
           <motion.div
             id="4"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -164,7 +164,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-t-2 border-b-2 border-l-2 border-blue-400">
           <motion.div
             id="5"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -175,7 +175,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-r-2 border-t-2 border-blue-400">
           <motion.div
             id="6"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -186,7 +186,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-r-2 border-l-2 border-blue-400">
           <motion.div
             id="7"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
@@ -197,7 +197,7 @@ function Multiplayer() {
         <div className="h-1/3 w-1/3 border-t-2 border-l-2 border-blue-400">
           <motion.div
             id="8"
-            onClick={(e) => setTheMark(e.target.id)}
+            onClick={(e) => setTheMark(e.target.id, true, true)}
             whileTap={{ scale: 0.8, rotate: 2 }}
             className="cabin-sketch-regular h-full w-full font-bold text-8xl flex justify-center items-center"
           >
