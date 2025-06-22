@@ -5,7 +5,7 @@ import socket from "../socket/Socket";
 
 function Multiplayer() {
   let [gameState, setGameState] = useState(Array(9).fill(null));
-  let [showMark, setShowMark] = useState("X");
+  let [prevMove, setPrevMove] = useState("");
   let [player1, setPlayer1] = useState(0);
   let [player2, setPlayer2] = useState(0);
   let [count, setCount] = useState(0);
@@ -13,30 +13,52 @@ function Multiplayer() {
 
   useEffect(() => {
     socket.on("move", (data) => {
-      console.log("data received at client mark", data.showMark);
-      console.log("data received at client state", data.gameState);
-      if (JSON.stringify(gameState) !== JSON.stringify(data.gameState)) {
-        console.log("set gamestate");
-        setGameState(data.gameState);
-      }
-      if (showMark != data.showMark) setTheMark(data.showMark);
+      console.log("data received at client", data);
+
+      setTheMark(data.idSent, (fromPlayer = false));
+      setPrevMove(data.prevMove);
     });
   });
 
   useEffect(() => checkResult(), [showMark]);
 
-  useEffect(() => {
-    socket.emit("move", { gameState: gameState, showMark: showMark });
-  }, [showMark]);
+  // useEffect(() => {
+  //   console.log("sent out data");
+  //   socket.emit("move", { gameState: gameState, showMark: showMark });
+  // }, [showMark]);
 
-  function setTheMark(id) {
-    let toFill = showMark == "X" ? "X" : "O";
-    setGameState((prev) => {
-      const newState = [...prev]; // create a shallow copy of the array
-      newState[id] = toFill; // update the desired index
-      return newState; // return the updated array
-    });
-    setShowMark((prev) => (prev == "X" ? "O" : "X"));
+  function setTheMark(id, fromPlayer) {
+    if (gameState.filter((item) => item === null).length == 9) {
+      let toFill = "X";
+      setGameState((prev) => {
+        const newState = [...prev]; // create a shallow copy of the array
+        newState[id] = toFill; // update the desired index
+        return newState; // return the updated array
+      });
+      setPrevMove("X");
+    } else {
+      if (prevMove == "X") {
+        let toFill = "O";
+        setGameState((prev) => {
+          const newState = [...prev]; // create a shallow copy of the array
+          newState[id] = toFill; // update the desired index
+          return newState; // return the updated array
+        });
+        setPrevMove("O");
+      } else {
+        let toFill = "X";
+        setGameState((prev) => {
+          const newState = [...prev]; // create a shallow copy of the array
+          newState[id] = toFill; // update the desired index
+          return newState; // return the updated array
+        });
+        setPrevMove("X");
+      }
+    }
+    if (!fromPlayer) {
+      console.log("data sent from client");
+      socket.emit("move", { prevMoveMade: prevMove, idSent: id });
+    }
   }
 
   function checkResult() {
