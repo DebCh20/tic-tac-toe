@@ -20,7 +20,7 @@ function Multiplayer() {
     });
   });
 
-  useEffect(() => checkResult(), [showMark]);
+  useEffect(() => checkResult(), [prevMove]);
 
   // useEffect(() => {
   //   console.log("sent out data");
@@ -89,7 +89,7 @@ function Multiplayer() {
             ? setPlayer1((prev) => prev + 1)
             : setPlayer2((prev) => prev + 1);
           setGameState([]);
-          setShowMark("X");
+          setPrevMove('');
         }
     }
   }
@@ -209,7 +209,7 @@ function Multiplayer() {
         whileTap={{ scale: 0.8, rotate: 2 }}
         onClick={() => {
           setGameState([]);
-          setShowMark(1);
+          setPrevMove('');
           console.log("game reset");
         }}
         className="permanent-marker-regular text-blue-500 w-1/5 border-4 border-zinc-600 rounded-lg mt-4 mb-3 p-3"
