@@ -5,7 +5,7 @@ import socket from "../socket/Socket";
 
 function Multiplayer() {
   let [gameState, setGameState] = useState(Array(9).fill(null));
-  let [prevMove, setPrevMove] = useState("");
+  let prevMove = "";
   let [player1, setPlayer1] = useState(0);
   let [player2, setPlayer2] = useState(0);
   let [count, setCount] = useState(0);
@@ -14,9 +14,7 @@ function Multiplayer() {
   useEffect(() => {
     socket.on("move", (data) => {
       console.log("data received at client", data);
-
-      setTheMark(data.idSent, false);
-      setPrevMove(data.prevMove);
+      setGameState(data.gameState);
     });
   });
 
@@ -24,41 +22,17 @@ function Multiplayer() {
 
   // useEffect(() => {
   //   console.log("sent out data");
-  //   socket.emit("move", { gameState: gameState, showMark: showMark });
-  // }, [showMark]);
+  //   socket.emit("move", { gameState: gameState });
+  // }, [gameState]);
 
   function setTheMark(id, fromPlayer) {
-    if (gameState.filter((item) => item === null).length == 9) {
-      let toFill = "X";
-      setGameState((prev) => {
-        const newState = [...prev]; // create a shallow copy of the array
-        newState[id] = toFill; // update the desired index
-        return newState; // return the updated array
-      });
-      setPrevMove("X");
-    } else {
-      if (prevMove == "X") {
-        let toFill = "O";
-        setGameState((prev) => {
-          const newState = [...prev]; // create a shallow copy of the array
-          newState[id] = toFill; // update the desired index
-          return newState; // return the updated array
-        });
-        setPrevMove("O");
-      } else {
-        let toFill = "X";
-        setGameState((prev) => {
-          const newState = [...prev]; // create a shallow copy of the array
-          newState[id] = toFill; // update the desired index
-          return newState; // return the updated array
-        });
-        setPrevMove("X");
-      }
-    }
-    if (fromPlayer) {
-      console.log("data sent from client");
-      socket.emit("move", { prevMoveMade: prevMove, idSent: id });
-    }
+    // setGameState((prev) => {
+    //   const newState = [...prev]; // create a shallow copy of the array
+    //   newState[id] = prevMove; // update the desired index
+    //   return newState; // return the updated array
+    // });
+    console.log("sent out data");
+    socket.emit("move", { gameState: gameState, forId: id });
   }
 
   function checkResult() {
@@ -89,7 +63,7 @@ function Multiplayer() {
             ? setPlayer1((prev) => prev + 1)
             : setPlayer2((prev) => prev + 1);
           setGameState([]);
-          setPrevMove('');
+          prevMove = "";
         }
     }
   }
@@ -209,7 +183,7 @@ function Multiplayer() {
         whileTap={{ scale: 0.8, rotate: 2 }}
         onClick={() => {
           setGameState([]);
-          setPrevMove('');
+          prevMove = "";
           console.log("game reset");
         }}
         className="permanent-marker-regular text-blue-500 w-1/5 border-4 border-zinc-600 rounded-lg mt-4 mb-3 p-3"
